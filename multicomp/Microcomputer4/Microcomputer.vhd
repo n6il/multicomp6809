@@ -91,6 +91,8 @@ entity Microcomputer is
         n_sRamWE        : out std_logic;
         n_sRamCS        : out std_logic;
         n_sRamOE        : out std_logic;
+        n_sRamLB        : out std_logic;
+        n_sRamUB        : out std_logic;
 
         rxd1            : in std_logic;
         txd1            : out std_logic;
@@ -241,6 +243,8 @@ begin
 -- Assign to pins. Set the address width to match external RAM/pin assignments
     sRamAddress(16 downto 0) <= sRamAddress_i(16 downto 0);
     n_sRamCS <= n_sRamCSLo_i;
+    n_sRamLB <= '0';
+    n_sRamUB <= '1';
 
 -- External RAM - high-order address lines come from the mem_mapper
     sRamAddress_i(12 downto 0) <= cpuAddress(12 downto 0);
@@ -414,7 +418,7 @@ mm1 : entity work.mem_mapper2
             dataOut => mmDataOut,
             regAddr => cpuAddress(2 downto 0),
 
-            cpuAddr => cpuAddress(15 downto 13),
+            cpuAddr => cpuAddress(15 downto 9),
             ramAddr => sRamAddress_i(18 downto 13),
             ramWrInhib => ramWrInhib,
             romInhib => romInhib,
