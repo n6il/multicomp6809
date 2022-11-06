@@ -86,8 +86,8 @@ entity Microcomputer is
         -- decoded at $FFD0 and the VDU at $FFD2.
         vduffd0     : in std_logic;
 
-        sRamData        : inout std_logic_vector(7 downto 0);
-        sRamAddress     : out std_logic_vector(16 downto 0);
+        sRamData        : inout std_logic_vector(15 downto 0);
+        sRamAddress     : out std_logic_vector(18 downto 0);
         n_sRamWE        : out std_logic;
         n_sRamCS        : out std_logic;
         n_sRamOE        : out std_logic;
@@ -241,15 +241,15 @@ begin
 -- RAM GOES HERE
 
 -- Assign to pins. Set the address width to match external RAM/pin assignments
-    sRamAddress(16 downto 0) <= sRamAddress_i(16 downto 0);
+    sRamAddress(18 downto 0) <= sRamAddress_i(18 downto 0);
     n_sRamCS <= n_sRamCSLo_i;
-    n_sRamLB <= '0';
-    n_sRamUB <= '1';
+    n_sRamLB <= sRamAddress_i(18);      -- Active Low - Lower Bank
+    n_sRamUB <= not(sRamAddress_i(18)); -- Active Low - Upper Bank
 
 -- External RAM - high-order address lines come from the mem_mapper
     sRamAddress_i(12 downto 0) <= cpuAddress(12 downto 0);
-    sRamData <= cpuDataOut when n_WR='0' else (others => 'Z');
-
+    sRamData(7 downto 0) <= cpuDataOut when sRamAddress_i(18)='0' and n_WR='0' else (others => 'Z');
+    sRamData(15 downto 8) <= cpuDataOut when sRamAddress_i(18)='1' and n_WR='0' else (others => 'Z');
 
     -- Internal 2K
     --wren_internalRam1 <= not(n_WR or n_internalRam1CS);
@@ -514,7 +514,8 @@ mm1 : entity work.mem_mapper2
                         sdCardDataOut or mmDataOut  when n_sdCardCS = '0' else
                         basRomData           when n_basRomCS = '0' else
 --                              internalRam1DataOut when n_internalRam1CS= '0' else
-                        sRamData;
+			sRamData(7 downto 0) when sRamAddress_i(18)='0' else
+			sRamData(15 downto 8);
 
 -- ____________________________________________________________________________________
 -- SYSTEM CLOCKS GO HERE

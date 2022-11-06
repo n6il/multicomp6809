@@ -58,8 +58,8 @@ set_location_assignment PIN_F14 -to rxd1
 set_location_assignment PIN_G12 -to txd1
 set_location_assignment PIN_G15 -to rts1
 
-set_location_assignment PIN_H12 -to rxd2
-set_location_assignment PIN_H13 -to txd2
+set_location_assignment PIN_H13 -to rxd2
+set_location_assignment PIN_H12 -to txd2
 set_location_assignment PIN_H14 -to rts2
 
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to rxd1
@@ -73,6 +73,7 @@ set_location_assignment PIN_AB5 -to n_sRamCS
 set_location_assignment PIN_T8 -to n_sRamOE
 set_location_assignment PIN_Y7 -to n_sRamLB
 set_location_assignment PIN_W7 -to n_sRamUB
+set_location_assignment PIN_Y5 -to sRamAddress[17]
 set_location_assignment PIN_Y6 -to sRamAddress[16]
 set_location_assignment PIN_T7 -to sRamAddress[15]
 set_location_assignment PIN_R10 -to sRamAddress[14]
@@ -90,6 +91,14 @@ set_location_assignment PIN_AB4 -to sRamAddress[3]
 set_location_assignment PIN_AA4 -to sRamAddress[2]
 set_location_assignment PIN_AB3 -to sRamAddress[1]
 set_location_assignment PIN_AA3 -to sRamAddress[0]
+set_location_assignment PIN_U8 -to sRamData[15]
+set_location_assignment PIN_V8 -to sRamData[14]
+set_location_assignment PIN_W8 -to sRamData[13]
+set_location_assignment PIN_R9 -to sRamData[12]
+set_location_assignment PIN_U9 -to sRamData[11]
+set_location_assignment PIN_V9 -to sRamData[10]
+set_location_assignment PIN_W9 -to sRamData[9]
+set_location_assignment PIN_Y9 -to sRamData[8]
 set_location_assignment PIN_AB9 -to sRamData[7]
 set_location_assignment PIN_AA9 -to sRamData[6]
 set_location_assignment PIN_AB8 -to sRamData[5]
@@ -132,7 +141,7 @@ set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to sdMISO
 set_location_assignment PIN_V20 -to sdSCLK
 set_location_assignment PIN_Y20 -to sdMOSI
 set_location_assignment PIN_U20 -to sdCS
-set_location_assignment PIN_R20 -to driveLED
+set_location_assignment PIN_Y21 -to driveLED
 
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to n_reset
 
@@ -221,6 +230,11 @@ set_global_assignment -name QIP_FILE ../ROMS/Z80/Z80_CPM_BASIC_ROM.qip
 set_global_assignment -name QIP_FILE ../ROMS/6809/M6809_CAMELFORTH_ROM.qip
 set_global_assignment -name QIP_FILE ../ROMS/6502/M6502_BASIC_ROM.qip
 set_global_assignment -name QIP_FILE ../ROMS/Z80/Z80_BASIC_ROM.qip
+
+
+
+
+
 
 
 
